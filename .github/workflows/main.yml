@@ -22,8 +22,8 @@ jobs:
       run: ./gradlew bootBuildImage
     - name: run docker push
       run: |
-        @docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        @docker push $REPO
+        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        docker push $REPO
       env: 
         DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}  
