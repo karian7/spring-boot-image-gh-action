@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("org.springframework.boot") version "2.6.2"
@@ -26,13 +25,17 @@ dependencies {
     testImplementation("io.projectreactor:reactor-test")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+tasks {
+    compileKotlin {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = "11"
+        }
     }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
+    test {
+        useJUnitPlatform()
+    }
+    bootBuildImage {
+        imageName = "docker.io/karian7/spring-boot-iamge-gh-action"
+    }
 }
